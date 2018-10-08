@@ -25,10 +25,7 @@ import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
-import com.baidu.mapapi.utils.CoordinateConverter;
-import com.baidu.trace.model.CoordType;
 import com.baidu.trace.model.SortType;
-import com.baidu.trace.model.TraceLocation;
 
 import java.util.List;
 
@@ -36,7 +33,7 @@ import java.util.List;
  * Created by baidu on 17/2/9.
  */
 
-public class BDMapUtil {
+public class MBDMapManager {
 
     public static final float ZOOM_BAIDU_MAP = 15f;//3~21
     private MapStatus mapStatus = null;
@@ -54,15 +51,11 @@ public class BDMapUtil {
      */
     public Overlay polylineOverlay = null;
 
-    public BDMapUtil(TextureMapView view) {
+    public MBDMapManager(TextureMapView view) {
         mapView = view;
         baiduMap = mapView.getMap();
         mapView.showZoomControls(false);
 //        setCenter(null);
-    }
-
-    public void setOnMapLoadedCallback(BaiduMap.OnMapLoadedCallback callback) {
-        baiduMap.setOnMapLoadedCallback(callback);
     }
 
     public void onPause() {
@@ -98,55 +91,9 @@ public class BDMapUtil {
         }
     }
 
-    /****************************************地图坐标和轨迹坐标之间转换*********************************************/
-    /**
-     * 将地图坐标转换轨迹坐标
-     *
-     * @param latLng
-     * @return
-     */
-    public static com.baidu.trace.model.LatLng convertMap2Trace(LatLng latLng) {
-        return new com.baidu.trace.model.LatLng(latLng.latitude, latLng.longitude);
+    public void setOnMapLoadedCallback(BaiduMap.OnMapLoadedCallback callback) {
+        baiduMap.setOnMapLoadedCallback(callback);
     }
-
-    /**
-     * 将轨迹坐标对象转换为地图坐标对象
-     *
-     * @param traceLatLng
-     * @return
-     */
-    public static LatLng convertTrace2Map(com.baidu.trace.model.LatLng traceLatLng) {
-        return new LatLng(traceLatLng.latitude, traceLatLng.longitude);
-    }
-
-    /**
-     * 将轨迹实时定位点转换为地图坐标
-     *
-     * @param location
-     *
-     * @return
-     */
-    public static LatLng convertTraceLocation2Map(TraceLocation location) {
-        if (null == location) {
-            return null;
-        }
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        if (Math.abs(latitude - 0.0) < 0.000001 && Math.abs(longitude - 0.0) < 0.000001) {
-            return null;
-        }
-        LatLng currentLatLng = new LatLng(latitude, longitude);
-        if (CoordType.wgs84 == location.getCoordType()) {
-            LatLng sourceLatLng = currentLatLng;
-            CoordinateConverter converter = new CoordinateConverter();
-            converter.from(CoordinateConverter.CoordType.GPS);
-            converter.coord(sourceLatLng);
-            currentLatLng = converter.convert();
-        }
-        return currentLatLng;
-    }
-
-    /****************************************地图坐标和轨迹坐标之间转换*********************************************/
 
     /**********************************添加地图覆盖物*******************************************/
     public Marker addOverlay(LatLng currentPoint, BitmapDescriptor icon, Bundle bundle) {

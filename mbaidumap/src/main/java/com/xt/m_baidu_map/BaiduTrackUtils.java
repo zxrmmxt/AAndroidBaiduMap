@@ -111,7 +111,7 @@ public class BaiduTrackUtils {
     public static List<LatLng> getLatLngList(List<TrackPoint> trackPoints) {
         List<LatLng> latLngs = new ArrayList<>();
         for (TrackPoint item : trackPoints) {
-            latLngs.add(BDMapUtil.convertTrace2Map(item.getLocation()));
+            latLngs.add(MBaiduCommonUtil.convertTrace2Map(item.getLocation()));
         }
         return latLngs;
     }

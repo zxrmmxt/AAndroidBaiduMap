@@ -120,7 +120,7 @@ public abstract class TrackPlayControl {
         }
     }
 
-    public void doOnMoveMarker(final BDMapUtil bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
+    public void doOnMoveMarker(final MBDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -175,7 +175,7 @@ public abstract class TrackPlayControl {
         }).start();
     }
 
-    protected void doOnProgressChanged(BDMapUtil bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
+    protected void doOnProgressChanged(MBDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
         final Marker moveMarker = bdMapUtil.getMoveMarker();
         moveMarker.setPosition(startPoint);
         mHandler.post(new Runnable() {
