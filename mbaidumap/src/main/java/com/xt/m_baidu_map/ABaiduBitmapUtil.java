@@ -10,7 +10,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
  * Created by baidu on 17/3/8.
  */
 
-public class MBaiduBitmapUtil {
+public class ABaiduBitmapUtil {
 
     public static BitmapDescriptor bmArrowPoint = null;
 

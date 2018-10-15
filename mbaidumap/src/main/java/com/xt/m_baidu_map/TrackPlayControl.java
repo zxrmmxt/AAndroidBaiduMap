@@ -120,7 +120,7 @@ public abstract class TrackPlayControl {
         }
     }
 
-    public void doOnMoveMarker(final MBDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
+    public void doOnMoveMarker(final ABDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -130,7 +130,7 @@ public abstract class TrackPlayControl {
                 }
                 moveMarker.setPosition(startPoint);
 //                        XTLogUtil.d("轨迹回放-------开始点---"+startPoint);
-                moveMarker.setRotate((float) MBaiduCommonUtil.getAngle(startPoint, endPoint));
+                moveMarker.setRotate((float) ABaiduCommonUtil.getAngle(startPoint, endPoint));
                         /*mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -141,9 +141,9 @@ public abstract class TrackPlayControl {
                         });*/
                 // 是不是正向的标示
                 boolean isReverse = (startPoint.latitude > endPoint.latitude);
-                final double slope = MBaiduCommonUtil.getSlope(startPoint, endPoint);
-                double interception = MBaiduCommonUtil.getInterception(slope, startPoint);
-                double xMoveDistance = MBaiduCommonUtil.getXMoveDistance(slope);
+                final double slope = ABaiduCommonUtil.getSlope(startPoint, endPoint);
+                double interception = ABaiduCommonUtil.getInterception(slope, startPoint);
+                double xMoveDistance = ABaiduCommonUtil.getXMoveDistance(slope);
                 xMoveDistance = isReverse ? xMoveDistance :
                         -1 * xMoveDistance;
                 for (double j = startPoint.latitude; !((j > endPoint.latitude) ^ isReverse);
@@ -175,7 +175,7 @@ public abstract class TrackPlayControl {
         }).start();
     }
 
-    protected void doOnProgressChanged(MBDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
+    protected void doOnProgressChanged(ABDMapManager bdMapUtil, final LatLng startPoint, final LatLng endPoint) {
         final Marker moveMarker = bdMapUtil.getMoveMarker();
         moveMarker.setPosition(startPoint);
         mHandler.post(new Runnable() {
@@ -188,7 +188,7 @@ public abstract class TrackPlayControl {
                     @Override
                     public void run() {
                         // refresh marker's rotate
-                        moveMarker.setRotate((float) MBaiduCommonUtil.getAngle(startPoint, endPoint));
+                        moveMarker.setRotate((float) ABaiduCommonUtil.getAngle(startPoint, endPoint));
 //                                moveMarker.setRotate(360-startPoint.getDirection());
                     }
                 });

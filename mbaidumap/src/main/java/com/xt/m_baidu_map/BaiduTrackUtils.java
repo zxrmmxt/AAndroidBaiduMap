@@ -47,7 +47,7 @@ public class BaiduTrackUtils {
         initTraceService(context, serviceId);
         setLocationAndReturnCycle();
         initListener();
-        MBaiduBitmapUtil.init();
+        ABaiduBitmapUtil.init();
     }
 
     public static BaiduTrackUtils getInstance(Context context, long serviceId) {
@@ -99,7 +99,7 @@ public class BaiduTrackUtils {
         List<TrackPoint> trackPointList = new ArrayList<>();
         if (null != trackPoints) {
             for (TrackPoint trackPoint : trackPoints) {
-                if (!MBaiduCommonUtil.isZeroPoint(trackPoint.getLocation().getLatitude(),
+                if (!ABaiduCommonUtil.isZeroPoint(trackPoint.getLocation().getLatitude(),
                         trackPoint.getLocation().getLongitude())) {
                     trackPointList.add(trackPoint);
                 }
@@ -111,7 +111,7 @@ public class BaiduTrackUtils {
     public static List<LatLng> getLatLngList(List<TrackPoint> trackPoints) {
         List<LatLng> latLngs = new ArrayList<>();
         for (TrackPoint item : trackPoints) {
-            latLngs.add(MBaiduCommonUtil.convertTrace2Map(item.getLocation()));
+            latLngs.add(ABaiduCommonUtil.convertTrace2Map(item.getLocation()));
         }
         return latLngs;
     }

@@ -23,7 +23,7 @@ import java.util.Locale;
  * Created by baidu on 17/1/23.
  */
 
-public class MBaiduCommonUtil {
+public class ABaiduCommonUtil {
 
     private static DecimalFormat df = new DecimalFormat("######0.00");
 

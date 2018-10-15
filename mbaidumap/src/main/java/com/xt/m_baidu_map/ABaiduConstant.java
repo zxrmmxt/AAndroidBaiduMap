@@ -1,6 +1,6 @@
 package com.xt.m_baidu_map;
 
-public class MBaiduConstant {
+public class ABaiduConstant {
 	public final static String CoorType_GCJ02 = "gcj02";
 	public final static String CoorType_BD09LL= "bd09ll";
 	public final static String CoorType_BD09MC= "bd09";

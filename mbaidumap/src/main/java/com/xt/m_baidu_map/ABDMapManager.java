@@ -33,7 +33,7 @@ import java.util.List;
  * Created by baidu on 17/2/9.
  */
 
-public class MBDMapManager {
+public class ABDMapManager {
 
     public static final float ZOOM_BAIDU_MAP = 15f;//3~21
     private MapStatus mapStatus = null;
@@ -51,7 +51,7 @@ public class MBDMapManager {
      */
     public Overlay polylineOverlay = null;
 
-    public MBDMapManager(TextureMapView view) {
+    public ABDMapManager(TextureMapView view) {
         mapView = view;
         baiduMap = mapView.getMap();
         mapView.showZoomControls(false);
@@ -121,7 +121,7 @@ public class MBDMapManager {
      */
 //    public void addMarker(LatLng currentPoint) {
 //        if (null == mMoveMarker) {
-//            mMoveMarker = addOverlay(currentPoint, MBaiduBitmapUtil.bmArrowPoint, null);
+//            mMoveMarker = addOverlay(currentPoint, ABaiduBitmapUtil.bmArrowPoint, null);
 //            return;
 //        }
 //
@@ -146,9 +146,9 @@ public class MBDMapManager {
         OverlayOptions markerOptions =
                 new MarkerOptions().flat(true).anchor(0.5f, 0.5f).icon(myLocationIcon)
                         .position(current)
-                        .rotate((float) MBaiduCommonUtil.getAngle(current, next));
+                        .rotate((float) ABaiduCommonUtil.getAngle(current, next));
         mMoveMarker = (Marker) baiduMap.addOverlay(markerOptions);
-        mMoveMarker.setRotate((float) MBaiduCommonUtil.getAngle(current, next));
+        mMoveMarker.setRotate((float) ABaiduCommonUtil.getAngle(current, next));
     }
 
     public void addMarker(LatLng currentPoint) {
@@ -183,13 +183,13 @@ public class MBDMapManager {
     public void moveLooper(LatLng endPoint) {
 
         mMoveMarker.setPosition(lastPoint);
-        mMoveMarker.setRotate((float) MBaiduCommonUtil.getAngle(lastPoint, endPoint));
+        mMoveMarker.setRotate((float) ABaiduCommonUtil.getAngle(lastPoint, endPoint));
 
-        double slope = MBaiduCommonUtil.getSlope(lastPoint, endPoint);
+        double slope = ABaiduCommonUtil.getSlope(lastPoint, endPoint);
         // 是不是正向的标示（向上设为正向）
         boolean isReverse = (lastPoint.latitude > endPoint.latitude);
-        double intercept = MBaiduCommonUtil.getInterception(slope, lastPoint);
-        double xMoveDistance = isReverse ? MBaiduCommonUtil.getXMoveDistance(slope) : -1 * MBaiduCommonUtil.getXMoveDistance(slope);
+        double intercept = ABaiduCommonUtil.getInterception(slope, lastPoint);
+        double xMoveDistance = isReverse ? ABaiduCommonUtil.getXMoveDistance(slope) : -1 * ABaiduCommonUtil.getXMoveDistance(slope);
 
         for (double latitude = lastPoint.latitude; latitude > endPoint.latitude == isReverse; latitude =
                 latitude - xMoveDistance) {
